@@ -16,8 +16,8 @@ pnpm-debug.log*
 public/
 
 # Starlight-Obsidian
-src/content/notes/_Private/
-src/content/notes/_Templates/
+src/content/docs/notes/_Private/
+src/content/docs/notes/_Templates/
 
 # environment variables
 .env
