@@ -12,6 +12,7 @@ export default defineConfig({
 		      // Configuration options go here.
           vault: 'D:/Documents/TSSR/Cours TSSR/Cours TSSR',
           // label: 'Cours',
+          skipGeneration: !!process.env['CI'] || !!process.env['VERCEL'],
           copyStarlightFrontmatter: true,
           ignore: [
             // Ignore all files and folders in the `private` folder.
