@@ -11,7 +11,7 @@ export default defineConfig({
         starlightObsidian({
 		      // Configuration options go here.
           vault: 'D:/Documents/TSSR/Cours TSSR/Cours TSSR',
-          label: 'Cours',
+          // label: 'Cours',
           copyStarlightFrontmatter: true,
           ignore: [
             // Ignore all files and folders in the `private` folder.
