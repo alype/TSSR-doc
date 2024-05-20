@@ -316,7 +316,8 @@ Invite de commande / Prompt :
 
 ### TP
 
-* \`\`
+[PDF : TP Poste de travail](/notes/poste-de-travail/_docs/brief-windows-tssr-66472845d86cb526733562.pdf)
+[TP Poste de travail](/notes/poste-de-travail/tp-poste-de-travail)
 
 ## Vocabulaire
 
