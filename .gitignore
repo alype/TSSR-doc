@@ -12,10 +12,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# public
-public/
-
 # Starlight-Obsidian
+public/notes/_private/
 src/content/docs/notes/_Private/
 src/content/docs/notes/_Templates/
 
