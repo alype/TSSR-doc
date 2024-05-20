@@ -4,8 +4,6 @@ import starlightObsidian, { obsidianSidebarGroup } from 'starlight-obsidian'
 import starlightLinksValidator from 'starlight-links-validator'
 
 export default defineConfig({
-  site: 'https://alype.github.io',
-  base: '/TSSR-doc',
   integrations: [
     starlight({
       plugins: [
