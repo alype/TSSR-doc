@@ -3,9 +3,7 @@ title: Commandes DOS
 editUrl: false
 ---
 
-## Commandes DOS
-
-### Commandes de base
+## Commandes de base
 
 /? = Help
 
@@ -35,9 +33,9 @@ editUrl: false
 
 Un fichier est composé d'un nom+ext
 
-1 octer = 1 byte = 8 bits = 1 caractère txt = 01010101 = A
+1 octet = 1 byte = 8 bits = 1 caractère txt = 01010101 = A
 
-### Attributs
+## Attributs
 
 Sur windows, il existe des attributs de fichiers :
 
@@ -56,23 +54,23 @@ R = read only (lecture seule)
 | attrib +h +s +r note1.txt | applique les attributs à note1.txt |             |
 | attrib -h -s -r note1.txt | retire les attributs à note1.txt   |             |
 
-![](https://raw.githubusercontent.com/alype/TSSR/main/Poste%20de%20travail/_attachments/Pasted%20image%2020240514145244.png)
+![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240514145244.png)
 
-#### Exercices
+### Exercices
 
 1.
 
-![](https://raw.githubusercontent.com/alype/TSSR/main/Poste%20de%20travail/_attachments/Pasted%20image%2020240514150551.png)
+![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240514150551.png)
 
 6.
 
-![](https://raw.githubusercontent.com/alype/TSSR/main/Poste%20de%20travail/_attachments/Pasted%20image%2020240514161022.png)
+![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240514161022.png)
 
 Exercice 3 :
 
-![](https://raw.githubusercontent.com/alype/TSSR/main/Poste%20de%20travail/_attachments/Pasted%20image%2020240514173324.png)
+![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240514173324.png)
 
-### Partager un dossier
+## Partager un dossier
 
 Windows xp : 10 connections simultanées
 
@@ -86,13 +84,13 @@ Qui s'occupe du partage dans un système windows ? le service serveur
 
 Troubleshooting : comprendre le mode de fonctionnement de l'ordinateur
 
-### usage de net share et net use
+## usage de net share et net use
 
 On execute en tant qu'administrateur :
 
 `net share` = permet de voir les partages
 
-![](https://raw.githubusercontent.com/alype/TSSR/main/Poste%20de%20travail/_attachments/Pasted%20image%2020240515104327.png)
+![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240515104327.png)
 
 Les partages avec un signe \$ : partages administratifs. Accès uniquement aux admin.
 
@@ -118,7 +116,7 @@ Permet le mappage de lecteur réseau (raccourcis)
 
 `net use x: /delete` = supprime le mappage de x:
 
-#### Exercices
+### Exercices
 
 4. * `md Apple Amazon Microsoft` (etc)
    * `cd Amazon`
@@ -141,7 +139,7 @@ Permet le mappage de lecteur réseau (raccourcis)
 
 Intérêt du groupe : faciliter l'administration système.
 
-### Permissions
+## Permissions
 
 **règles** :
 
@@ -171,7 +169,7 @@ FAT32 = (partitions supérieures à 2Go, mais ne copie pas de fichiers supérieu
 **Il est possible de convertir une partition FAT/FAT32 en NTFS sans pertes de données, mais le contraire n'est pas possible.**
 `convert e: /fs:ntfs`
 
-### Gestion des disques
+## Gestion des disques
 
 `Disk0` = partition 1
 
@@ -207,7 +205,7 @@ On ne peut pas reconvertir en GPT <-> MBR sans supprimer les partitions.
 | 1eo   | exa-octet   |        |
 | 1zo   | zetta octet |        |
 
-### Diskpart
+## Diskpart
 
 | Commandes | Correspondance   | Commentaire |
 | --------- | ---------------- | ----------- |
@@ -246,7 +244,7 @@ Préconisations :
 * Raid1 pour l'OS (ou Raid10)
 * Raid5 pour la data (ou Raid6)
 
-#### Exercices
+### Exercices
 
 1. ![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240516144441.png)
    * `diskpart`
@@ -255,7 +253,7 @@ Préconisations :
 2. ![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240516225019.png)
    * Lors de la création de la 4ème partition via Gestion des disques, une partition étendue est crée, dans laquelle est crée la partition logique.
 
-### Compléments DOS
+## Compléments DOS
 
 Sur DOS, il y a deux joker :
 
@@ -301,11 +299,11 @@ Invite de commande / Prompt :
 
 ![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240517101733.png)
 
-#### Exercices
+### Exercices
 
 ![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240517105100.png)
 
-### Les profils
+## Les profils
 
 (voir vidéo)
 
@@ -316,11 +314,11 @@ Invite de commande / Prompt :
 3. Profil obligatoire = profil qui n'enregistre rien après la fermeture de la session
 4. Profil temporaire = erreur de paramétrage
 
-#### TP
+### TP
 
 * \`\`
 
-### Vocabulaire
+## Vocabulaire
 
 Chemin UNC = chemin réseau = `\\ordinateur\dossier_partagé`
 
@@ -330,7 +328,7 @@ GUI = Graphic User Interface
 
 CLI = Command Line Interface
 
-### Autres commandes
+## Autres commandes
 
 | commande       | commentaire                                                                        |
 | -------------- | ---------------------------------------------------------------------------------- |

@@ -72,12 +72,8 @@ La configuration d'un pare-feu Cisco dépend du modèle spécifique du pare-feu 
 
 10. **Appliquer la politique globale** :
 
-    ```bash
-    ```
-
-service-policy global\_policy global
-
-```
+   ```bash
+   service-policy global_policy global
+   ```
 
 Ces commandes fournissent une base pour configurer un pare-feu Cisco ASA. Assurez-vous de consulter la documentation spécifique à votre modèle et à votre version du système d'exploitation Cisco pour obtenir des instructions détaillées sur la configuration de votre pare-feu. De plus, n'oubliez pas de tester et de valider votre configuration pour vous assurer qu'elle fonctionne comme prévu.
-```
