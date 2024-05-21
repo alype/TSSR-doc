@@ -2,6 +2,7 @@ import starlight from '@astrojs/starlight'
 import { defineConfig } from 'astro/config'
 import starlightObsidian, { obsidianSidebarGroup } from 'starlight-obsidian'
 import starlightLinksValidator from 'starlight-links-validator'
+import starlightImageZoom from 'starlight-image-zoom'
 
 export default defineConfig({
   integrations: [
@@ -21,6 +22,7 @@ export default defineConfig({
             // '**/*secret*',
           ],
         }),
+        starlightImageZoom(),
         starlightLinksValidator({
           // Configuration options go here.
         }),
