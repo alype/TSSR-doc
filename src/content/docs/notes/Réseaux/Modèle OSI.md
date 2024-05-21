@@ -1,12 +1,12 @@
 ---
-title: Réseaux
+title: Modèle OSI
 editUrl: false
 sidebar:
   order: 1
   badge:
     text: brouillon
     variant: note
-description: Réseaux TSSR
+description: Modèles OSI et TCP-IP
 tags:
   - TSSR
   - Cours
