@@ -63,7 +63,7 @@ Dans le cas où il n'y a pas de serveur DHCP, le PC envoie 3 request. Si elles s
 
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521114124.png)
 
-## Configuration routeur
+## Configuration routeur (addressage)
 
 **Configuration RT-4** (Routeur 4)
 
@@ -121,6 +121,146 @@ Sur Cisco, il est possible de faire un copier-coller du fichier txt du routeur e
 ```txt
 do sh ip int br // sow ip interface brief
 ```
+
+On a terminé l'adressage sur toutes les machines (voir vidéo). Maintenant, on peut commencer la partie routage.
+
+**Route par défaut** : on dit qu'une route est une route par défaut quand il y a un seul chemin à suivre par le routeur. Exemple : une box internet est une route par défaut.
+Pour aller n'importe où je dois passer par 162 (dans l'exemple).
+
+## Configuration routeur (routage)
+
+```txt
+RT-4
+ 
+conf t 
+ip route IPDestination MasqueDestination Passerelle
+```
+
+**Réseau isolé** : un réseau qui n'a qu'une seule route (route par défaut).
+
+:::caution
+Le coût d'un chemin statique = 1
+Le coût d'une route par défaut = 5 (ou 2?)
+Le coût d'une connexion directe = 0
+:::
+
+```txt
+RT-5
+
+en
+conf t
+ip route 0.0.0.0 0.0.0.0 192.168.0.181
+ip route 0.0.0.0 0.0.0.0 192.168.0.169
+```
+
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521142119.png)
+
+RT-2 :
+
+|  Destination  | Masque | Gateway   | Type     |
+| :-----------: | :----: | --------- | -------- |
+|  192.168.0.0  |   /25  | 164 / 177 | Static   |
+| 192.168.0.160 |   /30  | 164       | S        |
+| 192.168.0.164 |   /30  | -         | Connecté |
+| 192.168.0.168 |   /30  | -         | C        |
+| 192.168.0.172 |   /30  | 177       | S        |
+| 192.168.0.176 |   /30  | -         | C        |
+| 192.168.0.180 |   /30  | 177 / 170 | S        |
+| 192.168.0.128 |   /27  | 170       | S        |
+
+```txt
+RT-2
+======
+ip route 192.168.0.0 255.255.255.128 192.168.0.165
+ip route 192.168.0.160 255.255.255.252 192.168.0.165
+ip route 192.168.0.172 255.255.255.252 192.168.0.181
+ip route 192.168.0.180 255.255.255.252 192.168.0.177
+ip route 192.168.0.128 255.255.255.252 192.168.0.170
+
+do sh ip route
+```
+
+RT-1 :
+
+|  Destination  | Masque | Gateway |
+| :-----------: | :----: | ------- |
+|  192.168.0.0  |   /25  |         |
+| 192.168.0.160 |   /30  |         |
+| 192.168.0.164 |   /30  |         |
+| 192.168.0.168 |   /30  |         |
+| 192.168.0.172 |   /30  |         |
+| 192.168.0.176 |   /30  |         |
+| 192.168.0.180 |   /30  |         |
+| 192.168.0.128 |   /27  |         |
+
+```txt
+RT-1
+=======
+ip route 192.168.0.0 255.255.255.128 192.168.0.161
+ip route 192.168.0.168 255.255.255.252 192.168.0.166
+ip route 192.168.0.176 255.255.255.252 192.168.0.174
+
+ip route 192.168.0.180 255.255.255.252 192.168.0.174
+ip route 192.168.0.128 255.255.255.224 192.168.0.166
+ip route 192.168.0.128 255.255.255.224 192.168.0.174
+
+```
+
+On a une erreur au copié-collé :
+
+```
+no ip route ip route 192.168.0.128 255.255.255.224 192.168.0.165 // pour supprimer
+ip route 192.168.0.128 255.255.255.224 192.168.0.166
+```
+
+RT-3 :
+
+|  Destination  | Masque | Gateway |
+| :-----------: | :----: | ------- |
+|  192.168.0.0  |   /25  |         |
+| 192.168.0.160 |   /30  |         |
+| 192.168.0.164 |   /30  |         |
+| 192.168.0.168 |   /30  |         |
+| 192.168.0.172 |   /30  |         |
+| 192.168.0.176 |   /30  |         |
+| 192.168.0.180 |   /30  |         |
+| 192.168.0.128 |   /27  |         |
+
+```txt
+RT-3
+=======
+ip route 192.168.0.0 255.255.255.128 192.168.0.173
+
+ip route 192.168.0.168 255.255.255.252 192.168.0.178
+ip route 192.168.0.168 255.255.255.252 192.168.0.182
+
+ip route 192.168.0.164 255.255.255.252 192.168.0.178
+ip route 192.168.0.164 255.255.255.252 192.168.0.173
+
+ip route 192.168.0.160 255.255.255.252 192.168.0.173
+
+ip route 192.168.0.128 255.255.255.224 192.168.0.178
+ip route 192.168.0.128 255.255.255.224 192.168.0.182
+```
+
+```
+tracert
+```
+
+On a une erreur en faisant tracert
+
+```txt
+sh run | se ip route // permet de filtrer le contenu de sh run et ne montrer que les ip route
+```
+
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521143235.png)
+
+Astuce : aller du haut vers le bas plus petit au plus grand, et de la gauche vers la droite, plus petit au plus grand.
+
+AD = Administrative Distance : Rapport avec le coût.
+
+**TTL** = Time to Live = nombre de sauts (255-2 =253)
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521151933.png)
 
 ## Glossaire
 
