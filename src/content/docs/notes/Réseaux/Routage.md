@@ -28,7 +28,7 @@ Même schéma sur cisco :
 * Serveur mail
 * Serveur web
 
-## DHCP
+### DHCP
 
 * DHCP sur Cisco :
   ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521111723.png)
@@ -59,11 +59,11 @@ Moyen mnémotechnique : **DORA**
 
 Dans le cas où il y a plusieurs serveurs DHCP : C'est le serveur qui réponds le plus rapidement qui gagne.
 
-Dans le cas où il n'y a pas de serveur DHCP, le PC envoie 3 request. Si elles sont négatives, il s'auto-attribue une adresse APIPA (169.254..)
+Dans le cas où il n'y a pas de serveur DHCP, le PC envoie 3 requêtes. Si elles sont négatives, il s'auto-attribue une adresse APIPA (169.254..)
 
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521114124.png)
 
-## Configuration routeur (addressage)
+### Configuration routeur (adressage)
 
 **Configuration RT-4** (Routeur 4)
 
@@ -127,7 +127,7 @@ On a terminé l'adressage sur toutes les machines (voir vidéo). Maintenant, on 
 **Route par défaut** : on dit qu'une route est une route par défaut quand il y a un seul chemin à suivre par le routeur. Exemple : une box internet est une route par défaut.
 Pour aller n'importe où je dois passer par 162 (dans l'exemple).
 
-## Configuration routeur (routage)
+### Configuration routeur (routage)
 
 ```txt
 RT-4
@@ -139,8 +139,8 @@ ip route IPDestination MasqueDestination Passerelle
 **Réseau isolé** : un réseau qui n'a qu'une seule route (route par défaut).
 
 :::caution
-Le coût d'un chemin statique = 1
-Le coût d'une route par défaut = 5 (ou 2?)
+Le coût d'un chemin statique = 1\
+Le coût d'une route par défaut = 5 (ou 2?)\
 Le coût d'une connexion directe = 0
 :::
 
@@ -215,16 +215,16 @@ ip route 192.168.0.128 255.255.255.224 192.168.0.166
 
 RT-3 :
 
-|  Destination  | Masque | Gateway |
-| :-----------: | :----: | ------- |
-|  192.168.0.0  |   /25  |         |
-| 192.168.0.160 |   /30  |         |
-| 192.168.0.164 |   /30  |         |
-| 192.168.0.168 |   /30  |         |
-| 192.168.0.172 |   /30  |         |
-| 192.168.0.176 |   /30  |         |
-| 192.168.0.180 |   /30  |         |
-| 192.168.0.128 |   /27  |         |
+|  Destination  | Masque | Gateway | Type |
+| :-----------: | :----: | ------- | ---- |
+|  192.168.0.0  |   /25  | 161     |      |
+| 192.168.0.160 |   /30  |         | C    |
+| 192.168.0.164 |   /30  |         |      |
+| 192.168.0.168 |   /30  | 166     |      |
+| 192.168.0.172 |   /30  |         |      |
+| 192.168.0.176 |   /30  |         |      |
+| 192.168.0.180 |   /30  |         |      |
+| 192.168.0.128 |   /27  | 166     |      |
 
 ```txt
 RT-3
@@ -261,6 +261,113 @@ AD = Administrative Distance : Rapport avec le coût.
 
 **TTL** = Time to Live = nombre de sauts (255-2 =253)
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521151933.png)
+
+## Routage dynamique
+
+Définition : ?
+
+Il y a un problème de mémoire et un problème de traitement dans le routage (statique ?).
+
+En routage dynamique, les routeurs communiquent en permanence entre eux, même quand il n'y a pas d'échange de données. Cela provoque des ressources supplémentaires.
+
+Deux familles de routages dynamiques:
+
+* IGP = Interior Gateway Protocol
+* EGP = Exterior Gateway Protocol
+
+AS (Autonomous System) ou ASN (AS number) = Authentification de l'opérateur.\
+Auparavant codé sur 16 bit. Ce qui veut dire qu'il ne pouvait y avoir 2^16 (65000+) opérateurs. Aujourd'hui, c'est codé sur 32 bits = 2^32 = 4milliard.
+
+Au sein du réseau Orange par exemple, le protocole IGP est utilisé (voir en bleu).\
+Lorsque deux machines de différents opérateurs communiquent, c'est l'EGP qui est utilisé (voir en jaune).
+
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522102000.png)
+
+On appelle ces protocoles les protocoles d'internet.\
+**EGP** : Le protocole utilisé est BGP.
+
+### IGP
+
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522102224.png)
+
+1. Le vecteur distance -> RIP (Routeur Information(?) Protocol)
+   Le RIP (obsolète) :
+   * Version 1 : Envoi en Broadcast. Classful. Ne comprends pas le CIDR / VLSM.
+   * Version 2 : Envoi en multicast (Classe D, 224-239. Adresse : 224.0.0.9).
+     Vecteur distance problématique (càd ?)
+     Le RIP se base sur le nombre de sauts pour choisir une route.
+2. Etat de lien :
+   LSA : Link State Advertisement
+   OSPF
+   Aussi en multicast : 224.0.0.5
+   Envoi en multicast la table de routage (table de voisinage) à l'autre routeur.
+   ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522104135.png)
+   L'état de lien (OSPF) se base sur la BP (bande passante) pour determiner une route.
+   Toutes les 10 secondes, un hello est envoyé à tous les routeurs pour maintenir l'état de lien. La meilleure route est déjà établie.
+   ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522104702.png)
+   Après 4 hello unsuccessful, il le considère comme mort, et recalcule le chemin.
+   Table de voisinage (hello) -> LSA.
+   LSDB -> cartographie. On applique un algorithme de calcul du SPF.
+   On met ensuite la meilleure route dans la table de routage.
+
+:::tip
+Le GPS utilise l'OSPF
+:::
+
+3. Hybrid
+   EIGRP : Appartiens à Cisco
+   Hybride :
+   * Vecteur distance
+   * OSPF
+     Très bon protocole quand on a du cisco, moins consommateur de ressources que l'OSPF.
+     3 Tables :
+   * Table de voisinage
+   * Table topologique
+   * Table de routage (algo DUAL)
+
+### Configuration routeur (routage dynamique)
+
+```
+RT-2
+en conf t
+host RT-2
+
+in g0/0
+ip add 192.168.0.169 255.255.255.252
+no shut
+ip ospf 1 area 0
+
+do write // si il n'y a pas d'erreur
+```
+
+Il n'y a besoin que de configurer l'adressage, et `ip ospf 1 area 0` fait le reste
+
+**Troubleshooting** :
+
+```
+TS
+sh ip int br // interface broadcast ?
+sh ip route // 
+sh ip ospf neighbour // voir les voisins 
+sh ip ospf data
+sh ip protocols
+sh ip route
+debug ip packet // 
+debug ip ospf adj // 
+undebug all // pour désactiver les debug
+```
+
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522120427.png)
+
+110/4 = AD. 4 = coût./métrique bande passante cumulée.
+
+10^8 / BP x 10^6\
+GIP = 1000\
+10^8 / 10^3 (1000) x 10^6 = 10^8/10^9 = 0,1
+
+### Configuration serveur DNS
+
+![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522122954.png)
 
 ## Glossaire
 

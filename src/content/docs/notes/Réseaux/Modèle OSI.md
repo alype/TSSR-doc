@@ -267,6 +267,8 @@ Publiques : 192 . 169 . 0 . 0 -> 223 . 255 . 255 . 255
 
 #### Classe D
 
+(Multicast)
+
 224 -> 239
 
 #### Classe E
