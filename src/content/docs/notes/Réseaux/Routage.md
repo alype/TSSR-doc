@@ -7,6 +7,10 @@ editUrl: false
 
 Routage : def
 
+:::note
+C’est le routage statique (ipv4 & ipv6) que l’on aura à l’examen TSSR
+:::
+
 **Coût** en km (ou **métrique**): Je suis à Paris, je veux aller jusqu'à Marseille. Je dois passer par R1, R3, R5. Ou R1, R2, R5. On va chercher le moindre coût (en km).
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240521095111.png)
 
@@ -344,19 +348,6 @@ Il n'y a besoin que de configurer l'adressage, et `ip ospf 1 area 0` fait le res
 
 **Troubleshooting** :
 
-```
-TS
-sh ip int br // interface broadcast ?
-sh ip route // 
-sh ip ospf neighbour // voir les voisins 
-sh ip ospf data
-sh ip protocols
-sh ip route
-debug ip packet // 
-debug ip ospf adj // 
-undebug all // pour désactiver les debug
-```
-
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522120427.png)
 
 110/4 = AD. 4 = coût./métrique bande passante cumulée.
@@ -368,6 +359,36 @@ GIP = 1000\
 ### Configuration serveur DNS
 
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240522122954.png)
+
+## Protocoles applicatifs
+
+**DHCP** : protocole applicatif qui utilise UDP. Ports : 67 (server) - 68 (client).
+**DNS** : protocole applicatif qui utilise parfois UDP, parfois TCP. Pour rester simple, on va rester sur UDP. Ports : 53.
+**HTTP/HTTPS** : Ports : 80/443.
+
+:::caution
+Attention : les protocoles et les ports seront des questions à l’examen. À apprendre par cœur.
+:::
+
+## Troubleshooting
+
+```txt
+show ip int br // interface brief : permet de comparer les config de 2 routeurs pour analyser les problèmes de connection
+sh ip route // 
+sh ip ospf neighbour // voir les voisins 
+sh ip ospf data
+sh ip protocols
+sh ip route
+debug ip packet // 
+debug ip ospf adj // 
+undebug all // pour désactiver les debug
+```
+
+côté PC :
+
+```cmd
+ipconfig /release  // permet de libérer toutes les adresses
+```
 
 ## Glossaire
 

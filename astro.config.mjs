@@ -11,7 +11,7 @@ export default defineConfig({
         // Generate the Obsidian vault pages.
         starlightObsidian({
 		      // Configuration options go here.
-          vault: 'D:/Documents/TSSR/Cours TSSR/Cours TSSR',
+          vault: 'D:/Documents/TSSR/Cours TSSR/',
           // label: 'Cours',
           skipGeneration: !!process.env['CI'] || !!process.env['VERCEL'],
           copyStarlightFrontmatter: true,
