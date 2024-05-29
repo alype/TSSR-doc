@@ -7,7 +7,7 @@ editUrl: false
 
 Routage : def
 
-:::note
+:::note[Attention]
 C’est le routage statique (ipv4 & ipv6) que l’on aura à l’examen TSSR
 :::
 
@@ -366,8 +366,8 @@ GIP = 1000\
 **DNS** : protocole applicatif qui utilise parfois UDP, parfois TCP. Pour rester simple, on va rester sur UDP. Ports : 53.
 **HTTP/HTTPS** : Ports : 80/443.
 
-:::caution
-Attention : les protocoles et les ports seront des questions à l’examen. À apprendre par cœur.
+:::caution[Attention]
+Les protocoles et les ports seront des questions à l’examen. À apprendre par cœur.
 :::
 
 ## Troubleshooting
@@ -396,8 +396,5 @@ ipconfig /release  // permet de libérer toutes les adresses
 | :--------: | :-----: | ---------- |
 | Passerelle | Gateway |            |
 |            |         |            |
-|            |         |            |
-|            |         |            |
-|            |         |            |
-|            |         |            |
-|            |         |            |
+
+Mise en pratique du cours : [TP Adressage IPv4 ](/notes/réseaux/tp-routage-ipv4)
