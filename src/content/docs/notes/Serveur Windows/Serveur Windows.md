@@ -278,3 +278,30 @@ Ordre d'application d'une stratégie de groupe :
   C'est à l'OU que l'on applique une PGO.
 * En cas de conflit entre un paramètre de deux stratégies différentes, c'est la dernière appliquée qui l'emporte.
 * Forcer (ou appliquer) une stratégie.
+
+## Correction TP1
+
+Différence workgroup <-> domaine :
+
+Workgroup : pas de base de donnée centralisée. Base SAM présente dans chaque machine (Utilisateurs et groupes locaux). Gestion des comptes de sécurité.
+
+Le Workgroup n'est pas gérable à plus de 10 utilisateurs (il faut réinstaller les profils à chaque fois, ils ne sont pas accessibles directement).
+
+![](../../../../assets/notes/serveur-windows/_attachments/img_20240530_100744.jpg)
+
+Bade de donnée AD = NTDS\
+Sysvol = ?
+
+Connection à distance :
+
+`sysdm.cpl` :  Propriétés système de l'ordinateur.\
+![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240530104055.png)
+
+`mstsc.exe` = connexion à distance
+
+`DSA.MSC`= Utilisateurs et groupes Active Directory
+
+Méthode AGDLP = ***A**ccount **G**lobal **D**omain **L**ocal **P**ermissions*\
+<https://www.it-connect.fr/agdlp-bien-gerer-les-permissions-de-son-serveur-de-fichiers/>
+
+`GPMC.MSC` = Gestion de stratégie de groupe

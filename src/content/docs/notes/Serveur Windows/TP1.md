@@ -20,12 +20,22 @@ Tout d'abord, on définis une adresse IP fixe :\
 
 ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529125001.png)
 
+Et on change le nom de l'ordinateur :
+
+`sysdm.cpl`
+
+![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529125816.png)
+
 Sur le serveur, sur la fenêtre d'Active Directory, on ajoute les rôles :
 
 * Serveur DNS
 * Contrôleur de domaine AD
 * Serveur DHCP
 * Serveur FSRM
+
+:::caution[Attention]
+Il vaut mieux ajouter et configurer l'AD **avant** le serveur DNS
+:::
 
 ![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240528134153.png)
 
@@ -43,11 +53,20 @@ Sur le serveur, sur la fenêtre d'Active Directory, on ajoute les rôles :
 
 ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529122849.png)
 
-***
+![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240530101951.png)
 
-Une fois le contrôleur de domaine installé, on peut aller sur `sysdm.cpl` pour modifier le nom et le domaine :
+### Partitionner le disque
 
-![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529125816.png)
+Diskpart
+
+```
+diskpart
+list disk
+sel disk 0
+create part primary
+format fs=NTFS quick label=data
+assign letter E
+```
 
 ### Préparation PC Windows 11
 
@@ -104,22 +123,26 @@ Autorisations de partage pour Direction :\
 Autorisations NTFS pour Direction :\
 ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529145710.png)
 
-### 3) GPO
+## 3) GPO
 
 On veut mettre un script au démarrage de l'ordinateur.
 
 `gpedit.msc`
 
+On va sur les paramètres de la GPO :\
+![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240530112754.png)
+
+On se connecte sur Jim Boston, on vois que les emplacements réseau sont bien installés :\
 ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529163311.png)
 
-### 4) Quotas
+## 4) Quotas
 
 * On va sur `fsrm.msc`
 * On crée un modèle de quota :\
   ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529170506.png)
   ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529170151.png)
 
-### 5) DHCP
+## 5) DHCP
 
 Configuration de l'étendue DHCP :\
 ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529171632.png)
@@ -135,3 +158,8 @@ La réservation est active :\
 
 On peut voir que la carte réseau de POSTE01 a bien 10.0.0.12 en adresse IP:\
 ![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240529172712.png)
+
+:::caution[Attention]
+Il vaut mieux prendre un ipconfig /all et mettre en surbrillance les éléments importants :\
+![](../../../../assets/notes/serveur-windows/_attachments/pasted-image-20240530114456.png)
+:::
