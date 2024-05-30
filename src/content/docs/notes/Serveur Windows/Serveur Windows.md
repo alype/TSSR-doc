@@ -1,5 +1,5 @@
 ---
-title: Installation de Windows 10
+title: Serveur Windows
 editUrl: false
 ---
 
@@ -68,7 +68,7 @@ Voir les stratégies de groupes appliquées :
 GPRESULT /R
 ```
 
-### Questions d'examen
+## Questions d'examen
 
 Quels sont les 2 GPO par défaut quand tu installe un domaine ?
 
@@ -115,7 +115,7 @@ Adresse IP privée : elle ne sont pas routables.
 
 DHCP : implémentation de l'adresse IP automatique. L'adresse APIPA est l'adresse qui est attribuée si le serveur DHCP n'est pas joignable. Elle permet tout de même communiquer sur le LAN.
 
-### Résolution de noms (DNS)
+## Résolution de noms (DNS)
 
 **Méthodologie de dépannage TCP/IP** :
 
@@ -132,21 +132,24 @@ ping 127.0.0.1
 ```
 
 -> carte Rx fonctionne correctement
-3\.
+
+3.
 
 ```
 Ping @ ip de l'hôte
 ```
 
 -> Protocole TCP/IP fonctionne correctement
-4\.
+
+4.
 
 ```
 ping @ ip de la passerelle
 ```
 
 -> Routeur fonctionne correctement
-5\.
+
+5.
 
 ```
 ping @ip de l'hôte distant
@@ -158,7 +161,7 @@ ping @ip de l'hôte distant
 Recommencer la procédure avec le nom 
 ```
 
-### Types de noms des ordinateurs :
+## Types de noms des ordinateurs
 
 |     Nom     |                                                           Description                                                           |
 | :---------: | :-----------------------------------------------------------------------------------------------------------------------------: |
@@ -191,10 +194,87 @@ nslookup
 > set all
 ```
 
-## TP1
+## Active Directory
 
-![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240528134153.png)
+### Composants physiques
 
-![](../../../../assets/notes/poste-de-travail/_attachments/pasted-image-20240528134418.png)
+* **Le contrôleur de domaine** : Serveur windows dans lequel on a ajouté le rôle ADDS. Contient la base de données Active Directory. Rôle : il authentifie les objets (utilisateurs, UO, ordinateurs, etc.) du domaines.\
+  **RODC** : Contrôleur de domaine en lecture seule.
+* La BDD Active Directory se situe dans le répertoire `NTDS.DIT`. Les scripts, les GPO, etc. sont dans `sysvol`.
+* Le serveur catalogue global contient des attributs (nom, prénom, adresse) des objets de la forêt. Il permet d'effectuer des recherches rapides.
 
-<https://learn.microsoft.com/fr-fr/windows-server/networking/technologies/dhcp/quickstart-install-configure-dhcp-server?tabs=gui>
+### Composants logiques
+
+* Les partitions = sections de la BDD Active Directory
+* Le schéma Active Directory
+* Le domaine = limite administrative pour les objets utilisateurs et ordinateurs
+* Une arborescence de domaine = contient une suite de domaine qui partage un espace de nom contiguë.
+* La forêt AD =  contient l'arborescence des domaines AD.
+* Le site AD = découpe un domaine en plusieurs parties, afin de limiter et contrôler la réplication entre deux sites distants.
+* L'unité d'organisation = permet d'**appliquer une stratégie de groupe (GPO)** mais également de **mettre en place une délégation** (exemple : déléguer une tâche d'administration à un technicien).
+* GPO :
+
+### Le Domaine Active Directory
+
+**Définition**: Un domaine AD est un regroupement logique de comptes utilisateurs, ordinateurs ou de groupes.
+Ressources : dossier, fichier ou périphérique.
+Les objets qui sont créés sont stockés dans une BDD nommée NTDS.DIT, elle peut stocker pls types d'objets :
+
+* Le compte utilisateur
+* Le compte ordinateur
+* Les groupes
+
+### Les Unités Organisationnelles
+
+Les unités d'organisation (OU) sont des objets conteneurs qui permettent le regroupement de comptes utilisateur ou / et d'ordinateurs ....
+
+### Le schéma Active Directory
+
+Par défaut le schéma AD est caché :
+
+`CTRL+R` : `regsvr32 schmmgmt.dll`
+
+### Les partitions de l'Active Directory
+
+L'AD est composé de plusieurs partitions.
+
+### Les maîtres d'Opérations FSMO
+
+Il en existe 5 :
+
+* Deux présents uniquement sur un des contrôleurs de domaines de la forêt, les 3 autres se trouvent sur chaque domaine
+* Rôle maître de schéma
+* Rôle maître de dénomination de domaines
+* ...
+
+### Les sites AD et la réplication
+
+Les domaines sont découpés en sites AD, représentant la topologie physique de l'entreprise
+
+### Le contrôleur de domaine
+
+RODC : contrôleur de domaine en lecture seule
+
+### SYSVOL
+
+Système volume.\
+Stocké dans `c:\windows\sysvol\`\
+On y retrouve les scripts de connexion et les stratégie de groupes (GPO)
+
+### Stratégie de groupe : GPO
+
+Une GPO contient un ou plusieurs paramètres pour les utilisateurs et ordinateurs.
+
+* Stockées dans sysvol et gérées par gpmmc ??
+
+Ordre d'application d'une stratégie de groupe :
+
+1. Local
+2. Site
+3. Domaine
+4. OU
+
+* Est-ce qu'une GPO peut être appliquée à un groupe ? Un utilisateur ? Un ordinateur ? Non.\
+  C'est à l'OU que l'on applique une PGO.
+* En cas de conflit entre un paramètre de deux stratégies différentes, c'est la dernière appliquée qui l'emporte.
+* Forcer (ou appliquer) une stratégie.
