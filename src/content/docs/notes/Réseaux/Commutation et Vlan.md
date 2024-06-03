@@ -62,21 +62,88 @@ name IT
 vlan20
 name RH
 
-int f0/1
-switchport mode access
-swi access vlan 10
-
-int range f0/2-10
+int range f0/1-10
 switchport mode acces
 swi acces vlan 10
 
 int range f0/11-20
 switchport mode acces
 swi acces vlan 20
+
+int g0/1
+switchport mode trunk
 ```
 
 ```txt
 SW1
 ====
 show MAC-address-table 
+```
+
+Mode access : 1 interface appartient à un VLAN et un seul\
+Mode trunk : tout le monde peut passer à travers la même interface
+
+Lorsque l'on a deux switchs interconnectés, il faut mettre l'interface qui les connectes en mode trunk pour leur permettre de transférer les communications de plusieurs vlan sur le même interface.
+
+```
+int g0/1
+switchport mode trunk
+do show interface trunk
+```
+
+```txt
+SW2
+====
+en
+conf t
+hostname SW2
+
+vlan 10
+name IT
+
+vlan 20
+name RH
+
+int range f0/1-10
+switchport mode acces
+swi acces vlan 10
+
+int range f0/11-20
+switchport mode acces
+swi acces vlan 20
+
+int g0/1
+switchport mode trunk
+```
+
+Le vlan 10 et 20 ne peuvent pas communiquer. Il leur manque une passerelle, et un routeur pour router les communications.
+
+On rencontre le même problème avec le routeur qu'avec le second switch : il faut faire passer les communications de plusieurs vlan sur une seule interface. On crée donc des interfaces virtuelles, dédiées à chaque vlan.
+
+```
+SW2
+====
+int g0/2
+switchport mode trunk
+```
+
+```txt
+RT1
+====
+en
+conf t
+hostname RT1
+
+int g0/0
+no shutdown
+
+int g0/0.10
+encapsulation dot1Q 10
+ip add 192.168.10.254 255.255.255.0
+exit
+
+int g0/0.20
+encapsulation dot1Q 20
+ip add 192.168.20.254 255.255.255.0
+
 ```
