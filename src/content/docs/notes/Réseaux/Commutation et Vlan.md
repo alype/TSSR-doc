@@ -1,6 +1,15 @@
 ---
 title: Commutation et Vlan
 editUrl: false
+sidebar:
+  order: 3
+  badge:
+    text: nouveau
+    variant: tip
+description: Cours sur Commutation et Vlan
+tags:
+  - TSSR
+  - Cours
 ---
 
 ## Couche 2 : Liaison de données
@@ -146,4 +155,35 @@ int g0/0.20
 encapsulation dot1Q 20
 ip add 192.168.20.254 255.255.255.0
 
+```
+
+## Marseille
+
+```
+RT-Marseille-1
+====
+en
+conf t
+hostname RT-Marseille-1
+
+int g0/0
+no shutdown
+
+int g0/0.101
+encapsulation dot1Q 101
+ip add 10.13.1.254 255.255.254.0
+ip helper 10.13.4.1
+
+int g0/0.102
+encapsulation dot1Q 102
+ip add 10.13.2.254 255.255.255.0
+ip helper 10.13.4.1
+
+int g0/0.103
+encapsulation dot1Q 103
+ip add 10.13.3.254 255.255.255.0
+
+int g0/0.104
+encapsulation dot1Q 104
+ip add 10.13.4.30 255.255.255.224
 ```

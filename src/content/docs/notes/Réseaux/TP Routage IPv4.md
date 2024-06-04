@@ -1,6 +1,15 @@
 ---
 title: TP Routage IPv4
 editUrl: false
+sidebar:
+  order: 10
+  badge:
+    text: brouillon
+    variant: note
+description: TP Routage IPv4
+tags:
+  - TSSR
+  - TP
 ---
 
 [Voir le cours sur le routage](/notes/réseaux/routage)

@@ -1,6 +1,12 @@
 ---
 title: TP1
 editUrl: false
+sidebar:
+  order: 10
+description: Documentation sur le TP1
+tags:
+  - TSSR
+  - TP
 ---
 
 [TP01 (PDF)](/notes/serveur-windows/_docs/TP01_Elesco.pdf)

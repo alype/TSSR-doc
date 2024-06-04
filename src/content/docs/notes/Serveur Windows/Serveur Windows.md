@@ -1,6 +1,12 @@
 ---
 title: Serveur Windows
 editUrl: false
+sidebar:
+  order: 1
+description: Cours sur Serveurs Windows
+tags:
+  - TSSR
+  - Cours
 ---
 
 Windows 10 famille : Pas de GPO. Pas d'ajout sur le réseau. Pas d'HyperV.

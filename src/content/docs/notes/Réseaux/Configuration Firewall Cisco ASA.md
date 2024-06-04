@@ -1,6 +1,12 @@
 ---
 title: Configuration Firewall Cisco ASA
 editUrl: false
+sidebar:
+  order: 10
+description: Configuration Firewall Cisco ASA
+tags:
+  - TSSR
+  - Notes
 ---
 
 La configuration d'un pare-feu Cisco dépend du modèle spécifique du pare-feu et de la version de son système d'exploitation, Cisco ASA ou Cisco IOS. Voici quelques commandes générales pour configurer un pare-feu Cisco ASA, l'un des équipements de pare-feu les plus couramment utilisés de Cisco :

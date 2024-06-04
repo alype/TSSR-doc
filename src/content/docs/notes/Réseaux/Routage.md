@@ -1,6 +1,12 @@
 ---
 title: Routage
 editUrl: false
+sidebar:
+  order: 2
+description: Ma prise de note sur le Routage
+tags:
+  - TSSR
+  - Cours
 ---
 
 ## Routage statique
