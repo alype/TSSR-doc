@@ -2,7 +2,6 @@
 title: TP Poste de travail
 editUrl: false
 sidebar:
-  label: Configuration Firewall Cisco ASA
   order: 10
 description: TP Poste de travail
 tags:
