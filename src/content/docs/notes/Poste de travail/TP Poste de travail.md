@@ -3,6 +3,9 @@ title: TP Poste de travail
 editUrl: false
 sidebar:
   order: 10
+  badge:
+    text: brouillon
+    variant: note
 description: TP Poste de travail
 tags:
   - TSSR
