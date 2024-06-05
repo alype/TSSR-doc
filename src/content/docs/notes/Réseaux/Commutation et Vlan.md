@@ -157,7 +157,7 @@ ip add 192.168.20.254 255.255.255.0
 
 ```
 
-## Marseille
+## Projet
 
 ```
 RT-Marseille-1
@@ -173,17 +173,109 @@ int g0/0.101
 encapsulation dot1Q 101
 ip add 10.13.1.254 255.255.254.0
 ip helper 10.13.4.1
+ip ospf 1 area 0
 
 int g0/0.102
 encapsulation dot1Q 102
 ip add 10.13.2.254 255.255.255.0
 ip helper 10.13.4.1
+ip ospf 1 area 0
 
 int g0/0.103
 encapsulation dot1Q 103
 ip add 10.13.3.254 255.255.255.0
+ip helper 10.13.4.1
+ip ospf 1 area 0
 
 int g0/0.104
 encapsulation dot1Q 104
 ip add 10.13.4.30 255.255.255.224
+ip helper 10.13.4.1
+ip ospf 1 area 0
 ```
+
+```txt
+RT-Central-1
+====
+
+en
+conf t
+hostname RT-Central-1
+
+interface GigabitEthernet0/2
+no shut
+ip address 31.31.31.2 255.255.255.252
+ip ospf 1 area 0
+
+interface GigabitEthernet0/1
+no shut
+ip address 13.13.13.2 255.255.255.252
+ip ospf 1 area 0
+```
+
+```txt
+RT-Marseille-1
+====
+en
+conf t
+host RT-Marseille-1
+
+interface GigabitEthernet0/1
+no shut
+ip address 13.13.13.1 255.255.255.252
+ip ospf 1 area 0
+```
+
+### Création d’un Vlan de gestion
+
+On crée une VLAN de gestion :
+
+```txt
+SW-Marseille-1
+====
+en
+conf t
+
+vl 99
+name gestion
+
+```
+
+On va donner au switch une adresse IP de gestion. Ici, `10.13.99.254` :
+
+```txt
+int vl 99
+no shut
+ip add 10.13.99.254 255.255.255.0
+```
+
+Ensuite, on crée un user `admin` :
+
+```txt
+username admin privilege 15 password admin
+```
+
+:::note[Info]
+le `privilege 15` veut dire : tous les droits
+:::
+
+```txt
+ip domain-name mars.net
+crypto key generate rsa general-keys modulus 1024
+
+line vty 0 4
+login local
+transport imput ssh
+```
+
+## Commandes utiles
+
+|            Commande            |               Commentaire               |
+| :----------------------------: | :-------------------------------------: |
+|           `show run`           | Afficher tous les paramètres du routeur |
+|     `show interface trunk`     |     Afficher les interfaces trunkées    |
+|         `show ip ospf`         |                   Aff                   |
+|           `show vlan`          |             Affiche les vlan            |
+| `show crypto key mypubkey rsa` |                                         |
+|              \`\`              |                                         |
+|              \`\`              |                                         |
