@@ -129,7 +129,7 @@ Le vlan 10 et 20 ne peuvent pas communiquer. Il leur manque une passerelle, et u
 
 On rencontre le même problème avec le routeur qu'avec le second switch : il faut faire passer les communications de plusieurs vlan sur une seule interface. On crée donc des interfaces virtuelles, dédiées à chaque vlan.
 
-```
+```txt
 SW2
 ====
 int g0/2
@@ -159,7 +159,7 @@ ip add 192.168.20.254 255.255.255.0
 
 ## Projet
 
-```
+```txt
 RT-Marseille-1
 ====
 en
@@ -195,12 +195,12 @@ ip ospf 1 area 0
 ```
 
 ```txt
-RT-Central-1
+RT-Paris-1
 ====
 
 en
 conf t
-hostname RT-Central-1
+hostname RT-Paris-1
 
 interface GigabitEthernet0/2
 no shut
@@ -210,6 +210,11 @@ ip ospf 1 area 0
 interface GigabitEthernet0/1
 no shut
 ip address 13.13.13.2 255.255.255.252
+ip ospf 1 area 0
+
+interface G0/0
+no shut
+ip add 10.75.0.254 255.255.255.0
 ip ospf 1 area 0
 ```
 
@@ -268,14 +273,19 @@ login local
 transport imput ssh
 ```
 
+```txt
+int g0/2
+switchport trunk native vlan 99
+```
+
 ## Commandes utiles
 
-|            Commande            |               Commentaire               |
-| :----------------------------: | :-------------------------------------: |
-|           `show run`           | Afficher tous les paramètres du routeur |
-|     `show interface trunk`     |     Afficher les interfaces trunkées    |
-|         `show ip ospf`         |                   Aff                   |
-|           `show vlan`          |             Affiche les vlan            |
-| `show crypto key mypubkey rsa` |                                         |
-|              \`\`              |                                         |
-|              \`\`              |                                         |
+|            Commande            |                        Commentaire                       |
+| :----------------------------: | :------------------------------------------------------: |
+|           `show run`           |          Afficher tous les paramètres du routeur         |
+|     `show interface trunk`     |             Afficher les interfaces trunkées             |
+|         `show ip ospf`         |                            Aff                           |
+|           `show vlan`          |                     Affiche les vlan                     |
+| `show crypto key mypubkey rsa` | Affiche la clé publique générée par `crypto key gen rsa` |
+|    `show ip interface brief`   |                                                          |
+|              \`\`              |                                                          |
