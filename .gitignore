@@ -26,5 +26,6 @@ src/content/docs/notes/_Templates/
 
 # vscode
 .vscode/
+*.code-workspace
 
 

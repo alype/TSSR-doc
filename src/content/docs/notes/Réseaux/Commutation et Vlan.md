@@ -3,9 +3,6 @@ title: Commutation et Vlan
 editUrl: false
 sidebar:
   order: 3
-  badge:
-    text: nouveau
-    variant: tip
 description: Cours sur Commutation et Vlan
 tags:
   - TSSR
