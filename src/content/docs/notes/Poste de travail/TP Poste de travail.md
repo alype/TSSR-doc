@@ -12,7 +12,7 @@ tags:
   - TP
 ---
 
-[TP Poste de travail](/notes/poste-de-travail/_docs/brief-windows-tssr-66472845d86cb526733562.pdf)
+[TP poste de travail (.pdf)](/notes/poste-de-travail/_docs/brief-windows-tssr-66472845d86cb526733562.pdf)
 
 ## Exercice 1
 

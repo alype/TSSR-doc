@@ -9,7 +9,7 @@ tags:
   - TP
 ---
 
-[TP01 (PDF)](/notes/serveur-windows/_docs/TP01_Elesco.pdf)
+[TP Elecso - Préparation Serveur Windows](/notes/serveur-windows/_docs/TP01_Elesco.pdf)
 
 ## Préparation du TP
 

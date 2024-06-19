@@ -1,5 +1,5 @@
 ---
-title: Historique Linux
+title: Linux
 editUrl: false
 sidebar:
   order: 1
@@ -9,6 +9,7 @@ sidebar:
 description: Historique Linux
 tags:
   - TSSR
+  - Cours
 ---
 
 Linux est un système d'exploitation.\
@@ -69,15 +70,16 @@ Pour avoir des infos sur les différentes distribution linux :  <https://distrow
 
 ## Ligne de commande Linux
 
-`[sysadmin@localhost ~]$`
+Pour plus de commandes, voir le fichier \[LinuxCheatSheet (.xlsx)]\("/Serveur Linux/\_docs/LinuxCheatSheet.xlsx").
 
+`[sysadmin@localhost ~]$`\
 ![](../../../../assets/notes/serveur-linux/_attachments/screenshot_20240617_122326.png)
 
 ![](../../../../assets/notes/serveur-linux/_attachments/screenshot_20240617_122900.png)
 
 `whoami` = Connaître le compte connecté\
 `hostname` = voir le hostname\
-`pwd` =\
+`pwd` =  voir le chemin ou on se situe\
 `cat /etc/passwd`  = voir la liste des utilisateurs\
 `tty` = numéro du terminal utilisé\
 `cat /etc/hostname` = voir la liste des hostname
@@ -85,6 +87,137 @@ Pour avoir des infos sur les différentes distribution linux :  <https://distrow
 `sudo -i` = se connecter en root\
 `nano /etc/hostname` = pour modifier le hostname
 
-`shift+ctrl+n` = ouvrir une nouvelle fenêtre
-
+`shift+ctrl+n` = ouvrir une nouvelle fenêtre\
 `chvt 1` = virtual type (?)
+
+### Commandes d'affichage
+
+`ls -all` : veut dire `-a -l -l`\
+`ls --all` : veut dire `all`, donc la même commande que `-a` . Les deux `--` permettent de donner un mot complet pour une option
+
+`cat` : affiche le contenu d'un fichier\
+`tac` : inverse l'ordre de `cat`\
+`more /etc/passwd` : affiche le contenu du fichier passwd, fenêtre par fenêtre. Pas possible de faire des recherches ?\
+`less /etc/passwd` : comme less mais on peut faire une recherche\
+`head /etc/passwd` : affiche les 10 premières lignes d'un fichier\
+`head -n 5` : affiche les 5 premières lignes\
+`tail` : affiche les 10 dernières lignes d'un fichier
+
+La commande `echo` est une commande interne au shell. Elle renvoie ce qu'on lui donne.
+
+```shell
+sysadmin@localhost:~$ echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+/usr/games:/usr/local/games:/snap/bin
+```
+
+La commande a bien renvoyé le `$PATH`.
+
+```shell
+sysadmin@localhost:~$ whereis echo
+echo: /bin/echo /usr/share/man/man1/echo.1.gz
+```
+
+:::note[Question d'examen]
+A quoi correspond la variable $PATH ?
+<https://doc.ubuntu-fr.org/variables_d_environnement>
+:::
+
+## Système de fichier
+
+Comment est structuré le système de fichier de Linux.
+
+Arbre inversé : racine -> tronc -> branches.
+
+Racine (root) : `/`
+
+Branches :\
+![](../../../../assets/notes/serveur-linux/_attachments/screenshot_20240619_095855.png)
+
+![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619100102.png)
+
+![](../../../../assets/notes/serveur-linux/_attachments/e44d8464-f7b0-4b4a-a1c2-b3833f3e2a2a.png)
+
+* `/sbin` : binaries du répertoire de `root`. `bin` : binaires des utilisateurs.
+* `/etc` : Répertoire des configurations système
+  * `/etc/passwd`:
+    root = user; x = existence d'un mdp ; 0 = UUID ; 0 = GUID ; `/bin/bash` = représente un shell / terminal
+    ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619102029.png)
+
+  * `/etc/shadow` :
+    Mots de passe stockés de manière 'chiffrée'. (on dit qu'ils sont hashés (hash)).
+    ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619104128.png)
+    Le `$6$` représente l’algorithme de chiffrement. Après les `:` à la fin du hash, on a l'horodatage. `19726` = Nombre de jours après 1970 ; `0` nombre de jours avant de pouvoir changer le mot de passe; `99999` = nombre de jours avant le renouvellement du mot de passe ; `7` = nombre de jours avant l'avertissement de renouvellement de mot de passe.
+  :::note[Question d'examen]
+  Ou se situe la liste des utilisateurs sur linux ?
+  -> dans `/etc/passwd`
+  Comment y accéder ?
+  -> `cat /etc/passwd` ou `less` ou `more` ou `tail` ou `head`, etc.
+  Ou se situent les mots de passe ?
+  -> `/etc/shadow`
+  Ou se situent les groupes ?
+  -> `/etc/group`
+  :::
+
+:::note[Note sur le kernel]
+Le kernel (noyau) fait le lien entre le hardware et le software.
+![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619101802.png)
+:::
+
+## Astuces
+
+### Man Pages
+
+6.2.3 :
+
+To search a man page for a term, type the `/` character followed by a search term, then hit the **Enter** key. The program searches from the current location down towards the bottom of the page to try to locate and highlight the term.
+
+If a match is found, it will be highlighted. To move to the next match of the term, press **n**. To return to a previous match of the term, press **Shift**+**N**. If the term is not found, or upon reaching the end of the matches, the program will report `Pattern not found (press Return)`.
+
+6.2.4 :
+
+```shell
+man -k "copy file"
+```
+
+Permet de chercher une page de manuel avec les mots `copy file`.
+
+Options man :
+
+| Key                                   | Purpose                               |
+| ------------------------------------- | ------------------------------------- |
+| **H** or **h**                        | Display the help                      |
+| **Q** or **q**                        | Quit the help or manual page          |
+| **Spacebar** or **f** or **PageDown** | Move a screen forward                 |
+| **b** or **PageUp**                   | Move a screen backward                |
+| **Enter** or **down arrow**           | Move down one line                    |
+| **Up arrow**                          | Move up one line                      |
+| **/** followed by text to search      | Start searching forward               |
+| **?** followed by text to search      | Start searching backward              |
+| **n**                                 | Move to next text that matches search |
+| **N**                                 | Move to previous matching text        |
+
+### Rechercher un fichier
+
+6.3.2 :
+
+```shell
+sysadmin@localhost:~$ locate -b "\passwd"
+/etc/passwd
+/etc/pam.d/passwd
+/usr/bin/passwd
+/usr/share/doc/passwd
+/usr/share/lintian/overrides/passwd
+```
+
+### Changer le message pré-connexion
+
+<https://www.cyberciti.biz/faq/howto-change-login-message/>
+
+`nano /etc/issue`
+
+### Changer le message de bienvenue après connexion
+
+<https://www.adminmalin.fr/linux-personnaliser-message-bienvenue-shell/>
+
+`nano /etc/motd`

@@ -12,10 +12,10 @@ tags:
   - TP
 ---
 
-[Voir le cours sur le routage](/notes/réseaux/routage)
+[Voir le cours sur le routage](/notes/réseaux/routage)\
+[TP Routage statique (.pdf)](/notes/réseaux/_docs/Brief_TSSR_Routage_Statique.pdf)
 
-On mets d’abord en place le TP :
-
+On mets d’abord en place le TP :\
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240525204526.png)
 
 ## Exercice 1
@@ -90,8 +90,7 @@ Tout d’abord, on définis les adresse de passerelle :
 | Interface 1 |   12.12.12.1 /30  | 12.12.12.2 /30     | -                 |
 | Interface 2 |         -         | 23.23.23.2 /30     | 23.23.23.1 /30    |
 
-Résultat : 
-
+Résultat : \
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240525210237.png)
 
 Configuration : 
@@ -203,8 +202,7 @@ Je ne suis pas sûre de cette réponse
 
 ## Exercice 11
 
-On configure le serveur DHCP
-
+On configure le serveur DHCP  :\
 ![](../../../../assets/notes/réseaux/_attachments/pasted-image-20240526211128.png)
 
 ## Exercice 12

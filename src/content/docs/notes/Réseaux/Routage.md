@@ -403,4 +403,4 @@ ipconfig /release  // permet de libérer toutes les adresses
 | Passerelle | Gateway |            |
 |            |         |            |
 
-Mise en pratique du cours : [TP Adressage IPv4 ](/notes/réseaux/tp-routage-ipv4)
+Mise en pratique du cours : [TP Routage IPv4](/notes/réseaux/tp-routage-ipv4)

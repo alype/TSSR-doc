@@ -13,7 +13,7 @@ tags:
 
 /? = Help
 
-[PDF : Commandes\_CMD\_sous\_Windows](/notes/poste-de-travail/_docs/Commandes_CMD_sous_Windows.pdf)
+[Commandes CMD sous Windows (.pdf)](/notes/poste-de-travail/_docs/Commandes_CMD_sous_Windows.pdf)
 
 | Commandes                          | Correspondance                                    | Commentaire                                                                               |
 | ---------------------------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------- |
@@ -321,8 +321,6 @@ Invite de commande / Prompt :
 4. Profil temporaire = erreur de paramétrage
 
 ### TP
-
-[PDF : TP Poste de travail](/notes/poste-de-travail/_docs/brief-windows-tssr-66472845d86cb526733562.pdf)
 
 [TP Poste de travail](/notes/poste-de-travail/tp-poste-de-travail)
 
