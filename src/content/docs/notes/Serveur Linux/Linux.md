@@ -64,13 +64,13 @@ De son côté, RedHat fait la même chose qu'Ubuntu avec Fedora, une version tou
 
 Depuis 2 ans, IBM a racheté RedHat donc a arrêté CentOS (qui était la version gratuite de RedHat). C'est pour cela que Rocky Linux existe depuis.
 
-:::note[Tip]
+:::tip[Tip]
 Pour avoir des infos sur les différentes distribution linux :  <https://distrowatch.com> (surtout la carte des distribution)
 :::
 
 ## Ligne de commande Linux
 
-Pour plus de commandes, voir le fichier \[LinuxCheatSheet (.xlsx)]\("/Serveur Linux/\_docs/LinuxCheatSheet.xlsx").
+Pour plus de commandes, voir le fichier \[LinuxCheatSheet (.xlsx)]\("/Serveur Linux\_docs/LinuxCheatSheet.xlsx").
 
 `[sysadmin@localhost ~]$`\
 ![](../../../../assets/notes/serveur-linux/_attachments/screenshot_20240617_122326.png)
@@ -118,15 +118,14 @@ sysadmin@localhost:~$ whereis echo
 echo: /bin/echo /usr/share/man/man1/echo.1.gz
 ```
 
-:::note[Question d'examen]
+:::tip[Question d'examen]
 A quoi correspond la variable $PATH ?
 <https://doc.ubuntu-fr.org/variables_d_environnement>
 :::
 
 ## Système de fichier
 
-Comment est structuré le système de fichier de Linux.
-
+Comment est structuré le système de fichier de Linux.\
 Arbre inversé : racine -> tronc -> branches.
 
 Racine (root) : `/`
@@ -140,15 +139,8 @@ Branches :\
 
 * `/sbin` : binaries du répertoire de `root`. `bin` : binaires des utilisateurs.
 * `/etc` : Répertoire des configurations système
-  * `/etc/passwd`:
-    root = user; x = existence d'un mdp ; 0 = UUID ; 0 = GUID ; `/bin/bash` = représente un shell / terminal
-    ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619102029.png)
 
-  * `/etc/shadow` :
-    Mots de passe stockés de manière 'chiffrée'. (on dit qu'ils sont hashés (hash)).
-    ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619104128.png)
-    Le `$6$` représente l’algorithme de chiffrement. Après les `:` à la fin du hash, on a l'horodatage. `19726` = Nombre de jours après 1970 ; `0` nombre de jours avant de pouvoir changer le mot de passe; `99999` = nombre de jours avant le renouvellement du mot de passe ; `7` = nombre de jours avant l'avertissement de renouvellement de mot de passe.
-  :::note[Question d'examen]
+  :::tip[Question d'examen]
   Ou se situe la liste des utilisateurs sur linux ?
   -> dans `/etc/passwd`
   Comment y accéder ?
@@ -158,6 +150,14 @@ Branches :\
   Ou se situent les groupes ?
   -> `/etc/group`
   :::
+
+  * `/etc/passwd`:
+    root = user; x = existence d'un mdp ; 0 = UUID ; 0 = GUID ; `/bin/bash` = représente un shell / terminal
+    ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619102029.png)
+  * `/etc/shadow` :
+    Mots de passe stockés de manière 'chiffrée'. (on dit qu'ils sont hashés (hash)).
+    ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619104128.png)
+    Le `$6$` représente l’algorithme de chiffrement. Après les `:` à la fin du hash, on a l'horodatage. `19726` = Nombre de jours après 1970 ; `0` nombre de jours avant de pouvoir changer le mot de passe; `99999` = nombre de jours avant le renouvellement du mot de passe ; `7` = nombre de jours avant l'avertissement de renouvellement de mot de passe.
 
 :::note[Note sur le kernel]
 Le kernel (noyau) fait le lien entre le hardware et le software.
