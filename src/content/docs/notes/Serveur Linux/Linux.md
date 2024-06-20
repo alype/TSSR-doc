@@ -6,6 +6,11 @@ sidebar:
   badge:
     text: nouveau
     variant: tip
+head:
+  - tag: link
+    attrs:
+      rel: stylesheet
+      href: https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
 description: Historique Linux
 tags:
   - TSSR
@@ -71,6 +76,35 @@ Pour avoir des infos sur les différentes distribution linux :  <https://distrow
 ## Ligne de commande Linux
 
 Pour plus de commandes, voir le fichier \[LinuxCheatSheet (.xlsx)]\("/Serveur Linux\_docs/LinuxCheatSheet.xlsx").
+
+### Commandes de base
+
+|       Commandes      |                 Commentaire                |
+| :------------------: | :----------------------------------------: |
+|         `--h`        |                    help                    |
+|    `man <command>`   | permet d'afficher le manuel de la commande |
+|      `man -k ls`     |    affiche la liste de tous les manuels    |
+|         `cd`         |              change directory              |
+|        `mkdir`       |               make directory               |
+|         `cp`         |                    copy                    |
+|         `ls`         |                    list                    |
+|        `ls -l`       |      liste en liste (avec les droits)      |
+|        `ls -a`       |         montre les fichiers cachés         |
+| `touch <nomFichier>` |            crée un fichier vide            |
+|       Commandes      |                 Commentaire                |
+|         `--h`        |                    help                    |
+|    `man <command>`   | permet d'afficher le manuel de la commande |
+|      `man -k ls`     |    affiche la liste de tous les manuels    |
+|         `cd`         |              change directory              |
+|        `mkdir`       |               make directory               |
+|         `cp`         |                    copy                    |
+|         `ls`         |                    list                    |
+|        `ls -l`       |      liste en liste (avec les droits)      |
+|        `ls -a`       |         montre les fichiers cachés         |
+| `touch <nomFichier>` |            crée un fichier vide            |
+|    `cat > fichier`   |    permet d'éditer rapidement un fichier   |
+
+### Ligne de commande linux
 
 `[sysadmin@localhost ~]$`\
 ![](../../../../assets/notes/serveur-linux/_attachments/screenshot_20240617_122326.png)
@@ -164,6 +198,96 @@ Le kernel (noyau) fait le lien entre le hardware et le software.
 ![](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240619101802.png)
 :::
 
+## Gestion des utilisateurs, des groupes et des droits
+
+### Rappel
+
+Système de fichier :
+
+root = racine = `/`
+
+* `/etc` = configuration du système. -> `/password` ; `/shadow`; `/group`.
+* `/bin` = commandes
+* `/usr/bin` = commandes users standards
+* `home` = contient les fichiers des utilisateurs standarts
+* `root` = contient les fichiers de l'utilisateur root
+* `sbin` = contient les binaires de l'utilisateur root
+
+### Utilisateurs
+
+3 types d'users: admin, standards, applications
+
+1->999 = applications\
+1000 = 1er utilisateur standard
+
+![Pasted image 20240620103144.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620103144.png)
+
+Groupe primaire = `gID`\
+Groupe secondaire = `GID`
+
+:::tip[Mémo]
+`g` > `G` dans la table ASCII (les minuscules ont des valeurs plus petites que les majuscules)
+![Pasted image 20240620103610.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620103610.png)
+:::
+
+:::note[Note sur les processus]
+Processus = application lancée dans la mémoire
+
+1er processus qui se lance sur debian : initd\
+1er processus qui se lance sur Rocky : systemd
+
+PID = Process ID\
+PPID = Parent Process ID
+
+`ps -aux` = voir la liste des process :
+
+![Pasted image 20240620102355.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620102355.png)
+
+`pstree` = permet de voir l'arbre des process :
+
+![Pasted image 20240620102526.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620102526.png)
+
+Le 1er processus lancé (`systemd`) va lancer les autres processus.
+
+:::
+
+### Créer un utilisateur
+
+`adduser` (avec un prompt) ou `useradd` (pour faire un script, en une seule ligne).
+
+:::caution[Attention]
+`adduser` ne donne pas de prompt sur une distribution RedHat.
+:::
+
+Le hash est 'salé' avec une fonction aléatoire, donc même avec le même mot de passe, le hash n'est pas le même.
+
+`usermod -s /sbin/nologin titi` = titi ne peut plus se connecter.
+
+:::caution[Question d'examen : usermod]
+`-g` et `-G`
+`usermod -G sysadmin titi` = assigne le groupe sysadmin à titi, en supprimant les autres groupes secondaires.\
+`usermod -aG TSSR titi` = assigne le groupe TSSR à titi, sans supprimer les groupes secondaires existants\
+`usermod -g sysadmin titi` = assigne le groupe *primaire* sysadmin à titi, sans supprimer les groupes secondaires existants
+:::
+
+:::note[Note sur le chiffrement]
+![Pasted image 20240620105435.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620105435.png)
+
+1er $= algorithme utilisé pour le hachage.  
+2ème$ = mot de passe\
+3ème \$ = sel (salt)
+
+MD5 et SHAA1 : peuvent provoquer des collisions (hash identiques pour messages différents). On utilise donc le SHAA2 ou plus sécurisé.
+
+Sel = fonction aléatoire\
+![Pasted image 20240620110753.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620110753.png)
+
+:::
+
+### Droits
+
+![Pasted image 20240620112301.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620112301.png)
+
 ## Astuces
 
 ### Man Pages
@@ -221,3 +345,32 @@ sysadmin@localhost:~$ locate -b "\passwd"
 <https://www.adminmalin.fr/linux-personnaliser-message-bienvenue-shell/>
 
 `nano /etc/motd`
+
+## Archivage
+
+### Tar
+
+```shell
+tar –cvf mybackups/udev.tar /etc/udev
+```
+
+* `-c` = utilise le format de compression tar.
+* `-v` = verbose
+* `-f` = permet de spécifier le nom de l'archive crée.
+
+:::note[Information]
+`tar` stands for **T**ape **AR**chive. This command was originally used to create tape backups, but today it is more commonly used to create archive files.
+:::
+
+:::caution[Attention]
+You are not required to use the `.tar` extension to the archive file name, however, it is helpful for identifying the file type. It is considered "good style" when sending an archive file to another person.
+:::
+
+```shell
+tar -tf mybackups/udev.tar # Permet de lire le contenu d'une archive
+tar -tfv mybackups/udev.tar # Permet de voir les droits et de lister le contenu de l'archive comme un ls -l
+```
+
+* `t` = list contents
+* `v` = verbose
+* `f` = filename
