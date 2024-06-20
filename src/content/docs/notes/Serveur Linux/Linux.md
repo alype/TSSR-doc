@@ -6,11 +6,6 @@ sidebar:
   badge:
     text: nouveau
     variant: tip
-head:
-  - tag: link
-    attrs:
-      rel: stylesheet
-      href: https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css
 description: Historique Linux
 tags:
   - TSSR
@@ -264,18 +259,20 @@ Le hash est 'salé' avec une fonction aléatoire, donc même avec le même mot d
 `usermod -s /sbin/nologin titi` = titi ne peut plus se connecter.
 
 :::caution[Question d'examen : usermod]
-`-g` et `-G`
+`-g` et `-G`\
 `usermod -G sysadmin titi` = assigne le groupe sysadmin à titi, en supprimant les autres groupes secondaires.\
 `usermod -aG TSSR titi` = assigne le groupe TSSR à titi, sans supprimer les groupes secondaires existants\
 `usermod -g sysadmin titi` = assigne le groupe *primaire* sysadmin à titi, sans supprimer les groupes secondaires existants
 :::
 
+`groupdel RH` = supprime le groupe RH si le groupe RH est vide.
+
 :::note[Note sur le chiffrement]
 ![Pasted image 20240620105435.png](../../../../assets/notes/serveur-linux/_attachments/pasted-image-20240620105435.png)
 
-1er $= algorithme utilisé pour le hachage.  
-2ème$ = mot de passe\
-3ème \$ = sel (salt)
+1er `$` = algorithme utilisé pour le hachage.\
+2ème `$` = mot de passe\
+3ème `$` = sel (salt)
 
 MD5 et SHAA1 : peuvent provoquer des collisions (hash identiques pour messages différents). On utilise donc le SHAA2 ou plus sécurisé.
 
