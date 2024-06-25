@@ -98,6 +98,9 @@ Pour plus de commandes, voir le fichier \[LinuxCheatSheet (.xlsx)]\("/Serveur Li
 |        `ls -a`       |         montre les fichiers cachés         |
 | `touch <nomFichier>` |            crée un fichier vide            |
 |    `cat > fichier`   |    permet d'éditer rapidement un fichier   |
+|     `shutdown -h`    |                                            |
+|       `reboot`       |                                            |
+|      `poweroff`      |                                            |
 
 ### Ligne de commande linux
 
@@ -260,7 +263,7 @@ Le hash est 'salé' avec une fonction aléatoire, donc même avec le même mot d
 
 :::caution[Question d'examen : usermod]
 `-g` et `-G`\
-`usermod -G sysadmin titi` = assigne le groupe sysadmin à titi, en supprimant les autres groupes secondaires.\
+`usermod -G sysadmin titi` = assigne le groupe sysadmin à titi, **en supprimant les autres groupes secondaires**.\
 `usermod -aG TSSR titi` = assigne le groupe TSSR à titi, sans supprimer les groupes secondaires existants\
 `usermod -g sysadmin titi` = assigne le groupe *primaire* sysadmin à titi, sans supprimer les groupes secondaires existants
 :::

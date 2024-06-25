@@ -32,6 +32,10 @@ export default defineConfig({
         obsidianSidebarGroup,
       ],
       title: 'Ma documentation TSSR',
+      customCss: [
+        // Relative path to your custom CSS file
+        './src/styles/custom.css',
+      ],
     }),
   ],
 })
