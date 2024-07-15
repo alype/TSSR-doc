@@ -3,9 +3,6 @@ title: Linux
 editUrl: false
 sidebar:
   order: 1
-  badge:
-    text: nouveau
-    variant: tip
 description: Historique Linux
 tags:
   - TSSR

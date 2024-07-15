@@ -1,5 +1,5 @@
 ---
-title: Serveur Linux
+title: Serveur GLPI
 editUrl: false
 sidebar:
   order: 2

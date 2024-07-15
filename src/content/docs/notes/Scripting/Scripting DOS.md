@@ -117,6 +117,14 @@ Le `~` permet de découper une commande.
 `~3,10` = affiche les 10 premiers charactères de la commande après la position 3.\
 `~3,-10` = affiche les 10 premiers charactères de la commande après la position 3.
 
+![Pasted image 20240625153530.png](../../../../assets/notes/scripting/_attachments/pasted-image-20240625153530.png)
+
+### boucle FOR
+
+<https://fr.wikibooks.org/wiki/DOS/For>
+
+###
+
 | Colonne 1 | Colonne 2 |
 | :-------: | :-------: |
 |    \`\`   |           |
@@ -126,5 +134,69 @@ Le `~` permet de découper une commande.
 |    \`\`   |           |
 |    \`\`   |           |
 |    \`\`   |           |
+|           |           |
 
-![Pasted image 20240625153530.png](../../../../assets/notes/scripting/_attachments/pasted-image-20240625153530.png)
+## Exercices
+
+### 1
+
+* déclaration de variables demandant son âge
+* comparaison avec son âge
+* si âge = âge, super !
+  * si âge plus petit que âge : grandis
+  * si âge plus grand que âge : tu est plus vieux
+
+### 2
+
+comparaison de chaîne de caractère
+
+* si prénom = prénom : super
+* si différent : on a pas le même prénom
+
+### 3
+
+calculatrice avec un menu :
+
+* addition
+* soustraction
+* multiplication
+* division
+
+### 4
+
+il vous est demandé de créer un script sur la commande robocopy
+
+* En déclarant la source en variable ainsi que la destination.
+* Un fichier de log vous est demandé.
+* Plusieurs paramètres peuvent être demandé il suffit d’effectuer des déclarations de variable en mentionnant les informations sur l’écran.
+
+### 5
+
+Demande le nom de l'utilisateur puis le salue en le nommant
+
+Demande l'age de l'utilisateur et calcule les années qui lui reste avant la retraite. nom du script Bonjour.bat et son titre Retraite
+
+### 6
+
+choisir un nombre compris entre 5 et 20 et effectuer un décrément jusqu’à 0
+
+### 7
+
+Vous devez créer un script pour la configuration de votre carte réseaux en incluant le nom de votre carte,adresse IP,le masque de sous réseau,la passerelle. Et la configuration DNS La commande est netsh.
+
+* `boucle for` =
+* `netstat -A` = permet de voir les connexions
+
+### Eval 2
+
+script du numéro magique : laisser l'ordi choisir un chiffre. ENsuite, on essaie de trouver le chiffre que l'ordinateur a choisi, il nous dit si il est plus petit ou plus grand.
+
+On mémorise le nombre de coups.
+
+### Eval 3
+
+2.1. : possibilité de créer des groupes ou des OU
+
+3. member off
+
+4. fichier de log dans le répertoire Projet
