@@ -2,7 +2,7 @@
 title: Active Directory
 editUrl: false
 sidebar:
-  order: 1
+  order: 2
   badge:
     text: nouveau
     variant: tip
@@ -78,7 +78,9 @@ Méthode AGDLP :
 * groupe **D**omaine **L**ocal
 * affecter **P**ermissions
 
-UPL = première lettre du prénom et nom.
+UPN = première lettre du prénom et nom.
 
 A quoi sers une OU ? Appliquer les GPO\
 A quoi sers un groupe ? Appiquer les ACL (Access Control List)
+
+MY change here

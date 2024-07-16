@@ -16,6 +16,8 @@ tags:
 
 ## Exercice 1
 
+### My title
+
 :::note[Exercice 1]
 
 
